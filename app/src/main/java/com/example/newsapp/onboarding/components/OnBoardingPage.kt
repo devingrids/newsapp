@@ -19,10 +19,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.newsapp.R
 import com.example.newsapp.onboarding.Page
-import com.example.newsapp.onboarding.components.Dimens.MediumPadding1
-import com.example.newsapp.onboarding.components.Dimens.MediumPadding2
+import com.example.newsapp.ui.theme.Dimens.MediumPadding1
+import com.example.newsapp.ui.theme.Dimens.MediumPadding2
 import com.example.newsapp.onboarding.pages
-import com.example.newsapp.ui.theme.NewsappTheme
+import com.example.newsapp.ui.theme.NewsAppTheme
 
 @Composable
 fun OnBoardingPage(
@@ -56,10 +56,10 @@ fun OnBoardingPage(
 }
 
 @Preview(showBackground = true)
-@Preview(uiMode = UI_MODE_NIGHT_YES, showBackground = true)
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun OnBoardingPagePreview() {
-    NewsappTheme {
+    NewsAppTheme {
         OnBoardingPage(page = pages[0])
     }
 }

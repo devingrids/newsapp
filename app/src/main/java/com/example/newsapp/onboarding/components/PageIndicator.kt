@@ -1,4 +1,4 @@
-package com.example.newsapp.onboarding
+package com.example.newsapp.onboarding.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import com.example.newsapp.onboarding.components.Dimens.IndicatorSize
+import com.example.newsapp.ui.theme.Dimens.IndicatorSize
 
 @Composable
 fun PageIndicator(
