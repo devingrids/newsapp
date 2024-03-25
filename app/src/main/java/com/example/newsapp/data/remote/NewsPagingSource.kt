@@ -1,4 +1,4 @@
-package com.example.newsapp.data.remote.dto
+package com.example.newsapp.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult.Page
