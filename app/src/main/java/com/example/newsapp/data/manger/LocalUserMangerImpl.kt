@@ -28,6 +28,8 @@ class LocalUserMangerImpl(
     }
 }
 
+private val readOnlyProperty = preferencesDataStore(name = USER_SETTINGS)
+
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_SETTINGS)
 
 private object PreferencesKeys {
