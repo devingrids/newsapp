@@ -12,18 +12,17 @@ import com.example.newsapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+
 class NewsRepositoryImpl @Inject constructor(
     private val newsApi: NewsApi,
     private val newsDao: NewsDao
 ) : NewsRepository {
+
     override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
-                NewsPagingSource(
-                    newsApi = newsApi,
-                    sources = sources.joinToString(separator = ",")
-                )
+                NewsPagingSource(newsApi = newsApi, sources = sources.joinToString(separator = ","))
             }
         ).flow
     }
@@ -56,5 +55,4 @@ class NewsRepositoryImpl @Inject constructor(
     override suspend fun getArticle(url: String): Article? {
         return newsDao.getArticle(url = url)
     }
-
 }

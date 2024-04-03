@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.example.newsapp.domain.model.Article
 import kotlinx.coroutines.flow.Flow
 
+
 @Dao
 interface NewsDao {
 
@@ -22,4 +23,5 @@ interface NewsDao {
 
     @Query("SELECT * FROM Article WHERE url=:url")
     suspend fun getArticle(url: String): Article?
+
 }

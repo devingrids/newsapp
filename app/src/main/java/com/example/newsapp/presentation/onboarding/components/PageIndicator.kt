@@ -1,4 +1,4 @@
-package com.example.newsapp.onboarding.components
+package com.example.newsapp.presentation.onboarding.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,20 +11,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import com.example.newsapp.ui.theme.Dimens.IndicatorSize
+import com.example.newsapp.presentation.Dimens.IndicatorSize
+import com.example.newsapp.ui.theme.BlueGray
 
 @Composable
-fun PageIndicator(
+fun PagerIndicator(
     modifier: Modifier = Modifier,
-    pageSize: Int,
+    pagesSize: Int,
     selectedPage: Int,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedColor: Color = Color.Blue
+    unselectedColor: Color = BlueGray,
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
-        repeat(pageSize) { page ->
+        repeat(times = pagesSize) { page ->
             Box(
-                modifier = Modifier.size(IndicatorSize).clip(CircleShape)
+                modifier = Modifier
+                    .size(IndicatorSize)
+                    .clip(CircleShape)
                     .background(color = if (page == selectedPage) selectedColor else unselectedColor)
             )
         }

@@ -53,6 +53,7 @@ fun SearchBar(
         }
     }
 
+
     Box(modifier = modifier) {
         TextField(
             modifier = Modifier
@@ -77,9 +78,9 @@ fun SearchBar(
                 )
             },
             shape = MaterialTheme.shapes.medium,
-            colors = TextFieldDefaults.colors(
-//                containerColor = colorResource(id = R.color.input_background),
-//                textColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.input_background),
+                textColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                 cursorColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                 disabledIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,

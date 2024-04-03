@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.newsapp.domain.model.Article
 
+
 class SearchNewsPagingSource(
     private val api: NewsApi,
     private val searchQuery: String,
@@ -24,7 +25,7 @@ class SearchNewsPagingSource(
         return try {
             val newsResponse = api.searchNews(searchQuery = searchQuery, sources = sources, page = page)
             totalNewsCount += newsResponse.articles.size
-            val articles = newsResponse.articles.distinctBy { it.title } //Remove duplicates
+            val articles = newsResponse.articles.distinctBy { it.title }
 
             LoadResult.Page(
                 data = articles,
@@ -36,6 +37,4 @@ class SearchNewsPagingSource(
             LoadResult.Error(throwable = e)
         }
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.newsapp.onboarding
+package com.example.newsapp.presentation.onboarding
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -18,24 +18,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.newsapp.onboarding.components.OnBoardingPage
-import com.example.newsapp.onboarding.components.PageIndicator
+import androidx.compose.ui.unit.dp
+import com.example.newsapp.presentation.Dimens.MediumPadding2
 import com.example.newsapp.presentation.common.NewsButton
 import com.example.newsapp.presentation.common.NewsTextButton
-import com.example.newsapp.ui.theme.Dimens.MediumPadding2
-import com.example.newsapp.ui.theme.Dimens.PageIndicatorWidth
+import com.example.newsapp.presentation.onboarding.components.OnBoardingPage
+import com.example.newsapp.presentation.onboarding.components.PagerIndicator
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen(
-    event: (OnBoardingEvent) -> Unit
+    onEvent: (OnBoardingEvent) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
         }
-        val buttonState = remember {
+        val buttonsState = remember {
             derivedStateOf {
                 when (pagerState.currentPage) {
                     0 -> listOf("", "Next")
@@ -45,11 +45,9 @@ fun OnBoardingScreen(
                 }
             }
         }
-
         HorizontalPager(state = pagerState) { index ->
             OnBoardingPage(page = pages[index])
         }
-
         Spacer(modifier = Modifier.weight(1f))
         Row(
             modifier = Modifier
@@ -59,32 +57,34 @@ fun OnBoardingScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            PageIndicator(
-                modifier = Modifier.width(PageIndicatorWidth),
-                pageSize = pages.size,
+            PagerIndicator(
+                modifier = Modifier.width(52.dp),
+                pagesSize = pages.size,
                 selectedPage = pagerState.currentPage
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val scope = rememberCoroutineScope()
-                if (buttonState.value[0].isNotEmpty()) {
+                //Hide the button when the first element of the list is empty
+                if (buttonsState.value[0].isNotEmpty()) {
                     NewsTextButton(
-                        text = buttonState.value[0],
+                        text = buttonsState.value[0],
                         onClick = {
                             scope.launch {
-                                pagerState.animateScrollToPage(page = pagerState.currentPage - 1)
-
+                                pagerState.animateScrollToPage(
+                                    page = pagerState.currentPage - 1
+                                )
                             }
+
                         }
                     )
                 }
-
                 NewsButton(
-                    text = buttonState.value[1],
+                    text = buttonsState.value[1],
                     onClick = {
                         scope.launch {
                             if (pagerState.currentPage == 2) {
-                                event(OnBoardingEvent.SaveAppEntry)
+                                onEvent(OnBoardingEvent.SaveAppEntry)
                             } else {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1
