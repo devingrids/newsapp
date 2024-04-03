@@ -1,4 +1,4 @@
 /build
 local.properties
 gradle.properties
-/keys.properties
+keys.properties
