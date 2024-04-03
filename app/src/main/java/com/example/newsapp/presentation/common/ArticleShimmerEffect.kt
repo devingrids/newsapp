@@ -28,29 +28,34 @@ import com.example.newsapp.ui.theme.Dimens
 import com.example.newsapp.ui.theme.Dimens.MediumPadding1
 import com.example.newsapp.ui.theme.NewsAppTheme
 
-fun Modifier.shimmerEffect() = composed {
-    val transition = rememberInfiniteTransition(label = "")
+fun Modifier.shimmerEffect(cornerRadius: CornerRadius = CornerRadius(x = 12f, y = 12f)) = composed {
+    val transition = rememberInfiniteTransition(label = "shimmer effect")
     val alpha = transition.animateFloat(
-        initialValue = 0.2f,
-        targetValue = 0.9f,
-        animationSpec = infiniteRepeatable(
+        initialValue = 0.2f, targetValue = 0.9f, animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 1000),
             repeatMode = RepeatMode.Reverse
-
-        ), label = ""
+        ),
+        label = "transparency of the background color"
     ).value
-    background(color = colorResource(id = R.color.shimmer).copy(alpha = alpha))
+    val color = colorResource(id = R.color.shimmer).copy(alpha = alpha)
+    drawBehind {
+        drawRoundRect(
+            color = color,
+            cornerRadius = cornerRadius
+        )
+    }
 }
 
 @Composable
-fun ArticleCardShimmerEffect(
-    modifier: Modifier = Modifier
-) {
-    Row(modifier = modifier) {
+fun ArticleCardShimmerEffect(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+    ) {
         Box(
             modifier = Modifier
+                .size(Dimens.ArticleCardSize)
                 .clip(MaterialTheme.shapes.medium)
-                .shimmerEffect(),
+                .shimmerEffect()
         )
         Column(
             verticalArrangement = Arrangement.SpaceAround,
@@ -63,26 +68,20 @@ fun ArticleCardShimmerEffect(
                     .fillMaxWidth()
                     .height(30.dp)
                     .padding(horizontal = MediumPadding1)
-                    .shimmerEffect(),
+                    .shimmerEffect()
             )
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
-                        .height(15.dp)
                         .padding(horizontal = MediumPadding1)
-                        .shimmerEffect(),
+                        .height(15.dp)
+                        .shimmerEffect()
                 )
+
             }
         }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-fun ArticleCardShimmerEffectPreview() {
-    NewsAppTheme {
-        ArticleCardShimmerEffect()
     }
 }
